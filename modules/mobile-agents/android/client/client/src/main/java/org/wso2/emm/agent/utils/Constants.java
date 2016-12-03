@@ -114,7 +114,7 @@ public class Constants {
 	public static final String APP_DOWNLOAD_ENDPOINT = "/publisher/api/mobileapp/getfile";
 	public static final String ACTION_RESPONSE = "org.wso2.emm.agent.MESSAGE_PROCESSED";
 	public static final String POLICY_ENDPOINT = SERVER_APP_ENDPOINT + "policy/";
-	public static final String EVENT_ENDPOINT = SERVER_APP_ENDPOINT + "events/";
+	public static final String EVENT_ENDPOINT = SERVER_APP_ENDPOINT + "events/publish";
 	public static final String CATALOG_APP_PACKAGE_NAME = "org.wso2.app.catalog";
 	public static final String TRUSTSTORE_PASSWORD = "wso2carbon";
 	public static final String EULA_TITLE = "POLICY AGREEMENT";

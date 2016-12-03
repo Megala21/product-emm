@@ -57,6 +57,7 @@ import org.wso2.emm.agent.beans.Operation;
 import org.wso2.emm.agent.beans.WifiProfile;
 import org.wso2.emm.agent.events.beans.EventPayload;
 import org.wso2.emm.agent.events.listeners.WifiConfigCreationListener;
+import org.wso2.emm.agent.events.publisher.HttpDataPublisher;
 import org.wso2.emm.agent.proxy.interfaces.APIResultCallBack;
 import org.wso2.emm.agent.services.AgentDeviceAdminReceiver;
 import org.wso2.emm.agent.services.DeviceInfoPayload;
@@ -194,8 +195,14 @@ public abstract class OperationManager implements APIResultCallBack, VersionBase
         DeviceInfoPayload deviceInfoPayload = new DeviceInfoPayload(context);
         deviceInfoPayload.build();
         String replyPayload = deviceInfoPayload.getDeviceInfoPayload();
-
         operation.setOperationResponse(replyPayload);
+        if (Constants.EventListeners.EVENT_LISTENING_ENABLED) {
+            EventPayload eventPayload = new EventPayload();
+            eventPayload.setPayload(replyPayload);
+            eventPayload.setType("info");
+            HttpDataPublisher httpDataPublisher = new HttpDataPublisher();
+            httpDataPublisher.publish(eventPayload);
+        }
         operation.setStatus(resources.getString(R.string.operation_value_completed));
         resultBuilder.build(operation);
 
